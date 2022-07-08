@@ -13,14 +13,12 @@ services:
       - node-network
     ports:
       - "8080:80"
-    depends_on:
-      - app
 
   app:
     container_name: app
     build: 
       context: node
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     image: pauloch8/node
     entrypoint: dockerize -wait tcp://db:3306 -timeout 50s node /usr/src/app/index.js
     networks:
@@ -30,6 +28,8 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    volumes:
+      - ./node:/usr/src/app
 
 
   db:
