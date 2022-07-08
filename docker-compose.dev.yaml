@@ -8,26 +8,27 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.prod
     image: pauloch8/nginx:prod
-    entrypoint: dockerize -wait http://app:3000 -timeout 50s nginx -g "daemon off;"
     networks:
       - node-network
     ports:
       - "8080:80"
 
+
+
+
   app:
     container_name: app
     build: 
-      context: node
+      context: ./node
       dockerfile: Dockerfile
     image: pauloch8/node
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 50s node /usr/src/app/index.js
     networks:
       - node-network
     tty: true
-    ports:
-      - "3000:3000"
     depends_on:
       - db
+    ports:
+      - "3000:3000"
     volumes:
       - ./node:/usr/src/app
 
