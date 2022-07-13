@@ -1,19 +1,22 @@
-FROM node:15-alpine
+FROM node:15 AS build
 
 WORKDIR /app
 
 COPY package*.json .
 
-RUN npm install --prod
+RUN npm install --production
 
-RUN apk add --no-cache openssl
+FROM node:15-slim
 
-ENV DOCKERIZE_VERSION v0.6.1
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-    && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+WORKDIR /app
+
+COPY ./dockerize-linux-amd64-v0.6.1.tar.gz .
+RUN tar -C /usr/local/bin -xzvf dockerize-linux-amd64-v0.6.1.tar.gz \
+    && rm dockerize-linux-amd64-v0.6.1.tar.gz
 
 COPY src ./src
+
+COPY --from=build /app/node_modules ./node_modules
 
 EXPOSE 3000
 
