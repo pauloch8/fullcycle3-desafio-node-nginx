@@ -20,8 +20,8 @@ services:
     container_name: app
     build: 
       context: ./node
-      dockerfile: Dockerfile
-    image: pauloch8/node
+      dockerfile: Dockerfile.dev
+    image: pauloch8/node-dev
     networks:
       - node-network
     tty: true
@@ -29,8 +29,9 @@ services:
       - db
     ports:
       - "3000:3000"
+      - "9229:9229"
     volumes:
-      - ./node:/usr/src/app
+      - ./node:/app
 
 
   db:

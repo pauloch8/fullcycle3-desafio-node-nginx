@@ -19,10 +19,10 @@ services:
   app:
     container_name: app
     build: 
-      context: node
+      context: ./node
       dockerfile: Dockerfile.prod
     image: pauloch8/node
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 50s node /usr/src/app/index.js
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 50s node /app/src/index.js
     networks:
       - node-network
     tty: true

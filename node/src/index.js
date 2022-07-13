@@ -15,9 +15,10 @@ const port = 3000;
         await inserirRegistro();
         const registros = await lerRegistros();
         await fecharConexao();
-
+        debugger;
         res.send(`
             <h1>Full Cycle</h1>
+            teste
             <ul>
                 ${registros.map((registro) => `<li>${registro.name}</li>`).join('')}
             </ul>

@@ -1,10 +1,10 @@
 FROM node:15-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . .
+COPY package*.json .
 
-RUN npm install
+RUN npm install --prod
 
 RUN apk add --no-cache openssl
 
@@ -13,6 +13,8 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+COPY src ./src
+
 EXPOSE 3000
 
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
