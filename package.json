@@ -1,0 +1,23 @@
+{
+  "name": "desfio-node-nginx",
+  "version": "1.0.0",
+  "description": "Criei uma rotina para a criação da tabela no banco de dados, caso ela não exista",
+  "main": "index.js",
+  "scripts": {
+    "dev:up": "docker-compose -p desfio-node-nginx-dev -f docker-compose.yaml -f override.dev.yaml up -d --build",
+    "dev:down": "docker-compose -p desfio-node-nginx-dev -f docker-compose.yaml -f override.dev.yaml down",
+    "prod:up": "docker-compose -p desfio-node-nginx-prod -f docker-compose.yaml -f override.prod.yaml up -d --build",
+    "prod:down": "docker-compose -p desfio-node-nginx-prod -f docker-compose.yaml -f override.prod.yaml down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauloch8/fullcycle3-desafio-node-nginx.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauloch8/fullcycle3-desafio-node-nginx/issues"
+  },
+  "homepage": "https://github.com/pauloch8/fullcycle3-desafio-node-nginx#readme"
+}

@@ -4,34 +4,21 @@ services:
 
   nginx:
     container_name: nginx
-    build:
+    build: 
       context: ./nginx
-      dockerfile: Dockerfile.prod
-    image: pauloch8/nginx:prod
-    entrypoint: dockerize -wait http://app:3000 -timeout 50s nginx -g "daemon off;"
+    image: pauloch8/nginx
     networks:
       - node-network
     ports:
       - "8080:80"
-    depends_on:
-      - app
 
   app:
     container_name: app
-    build: 
-      context: ./node
-      dockerfile: Dockerfile.prod
-    image: pauloch8/node
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 50s node /app/src/index.js
     networks:
       - node-network
     tty: true
     depends_on:
       - db
-    
-
-    
-
 
   db:
     image: mysql:5.7

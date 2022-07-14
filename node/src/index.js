@@ -18,7 +18,6 @@ const port = 3000;
         debugger;
         res.send(`
             <h1>Full Cycle</h1>
-            teste
             <ul>
                 ${registros.map((registro) => `<li>${registro.name}</li>`).join('')}
             </ul>
